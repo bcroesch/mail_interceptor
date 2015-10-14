@@ -15,15 +15,14 @@ module MailInterceptor
     end
 
     def delivering_email message
-      message.to = normalize_recipients(message.to).flatten.uniq
-      message.cc = normalize_recipients(message.cc).flatten.uniq
-      message.bcc = normalize_recipients(message.bcc).flatten.uniq
+      message.to = normalize_recipients(message.to).flatten.uniq unless message.to.nil?
+      message.cc = normalize_recipients(message.cc).flatten.uniq unless message.cc.nil?
+      message.bcc = normalize_recipients(message.bcc).flatten.uniq unless message.bcc.nil?
     end
 
     private
 
     def normalize_recipients recipients
-      return nil if recipients.nil?
       return Array.wrap(recipients) unless env.intercept?
 
       return forward_emails_to if deliver_emails_to.empty?

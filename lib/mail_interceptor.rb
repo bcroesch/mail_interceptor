@@ -16,7 +16,7 @@ module MailInterceptor
       message.cc = normalize_recipients(message.cc).flatten.uniq unless message.cc.nil?
       message.bcc = normalize_recipients(message.bcc).flatten.uniq unless message.bcc.nil?
       
-      mail.perform_deliveries = false if message.to.empty? && message.cc.empty? && message.bcc.empty?
+      mail.perform_deliveries = false if message.to.blank? && message.cc.blank? && message.bcc.blank?
     end
 
     private
